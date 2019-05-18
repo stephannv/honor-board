@@ -23,6 +23,10 @@ default: &default
 
 development:
   <<: *default
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
   database: honor_board_development
 
   # The specified database role being used to connect to postgres.

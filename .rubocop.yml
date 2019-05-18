@@ -1,0 +1,28 @@
+require: rubocop-performance
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/MixinUsage:
+  Exclude:
+    - 'bin/setup'
+    - 'bin/update'
+
+AllCops:
+  Exclude:
+    - 'bin/bundle'
+    - 'vendor/**/*'
+    - 'db/schema.rb'

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/stephanngamedev/honor-board.svg?branch=master)](https://travis-ci.org/stephanngamedev/honor-board)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
