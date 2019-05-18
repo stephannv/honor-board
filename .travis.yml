@@ -1,0 +1,35 @@
+language: ruby
+
+rvm:
+  - 2.6.3
+
+cache: bundler
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
+
+before_script:
+  - cp config/database.yml.ci config/database.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
+
+stages:
+  - rubocop
+  - rspec
+
+jobs:
+  include:
+    - stage: rubocop
+      script: bundle exec rubocop
+    - stage: rspec
+      script: bundle exec rspec spec

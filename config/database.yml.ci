@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: honor_board_ci_test
+  port: 5433
