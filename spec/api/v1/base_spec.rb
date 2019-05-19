@@ -16,6 +16,11 @@ RSpec.describe HonorBoard::V1::Base do
       is_routes_included = HonorBoard::V1::Participants.routes.all? { |route| described_class.routes.include?(route) }
       expect(is_routes_included).to be_truthy
     end
+
+    it 'mounts HonorBoard::V1::Seasons app' do
+      is_routes_included = HonorBoard::V1::Seasons.routes.all? { |route| described_class.routes.include?(route) }
+      expect(is_routes_included).to be_truthy
+    end
   end
 
   describe 'Rescued errors' do

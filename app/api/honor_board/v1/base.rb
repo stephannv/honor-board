@@ -18,6 +18,7 @@ module HonorBoard
       end
 
       mount HonorBoard::V1::Participants
+      mount HonorBoard::V1::Seasons
     end
   end
 end
