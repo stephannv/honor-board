@@ -10,6 +10,7 @@ gem 'pg', '1.1.4'
 gem 'puma', '3.12.1'
 gem 'rack-cors', '1.0.3'
 gem 'rails', '6.0.0.rc1'
+gem 'surrealist', '1.3.3'
 gem 'tzinfo-data', '1.2.5', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
@@ -25,4 +26,9 @@ group :development do
   gem 'rubocop-performance', '1.3.0'
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
+end
+
+group :test do
+  gem 'shoulda-matchers', '4.0.1'
+  gem 'simplecov', '0.16.1', require: false
 end
