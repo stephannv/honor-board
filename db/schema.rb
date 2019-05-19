@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_18_211205) do
+ActiveRecord::Schema.define(version: 2019_05_19_193309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2019_05_18_211205) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_participants_on_username"
+  end
+
+  create_table "seasons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.citext "title", null: false
+    t.date "started_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["started_at"], name: "index_seasons_on_started_at"
+    t.index ["title"], name: "index_seasons_on_title"
   end
 
 end
