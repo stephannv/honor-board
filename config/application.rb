@@ -34,7 +34,9 @@ module HonorBoard
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.paths.add File.join('app', 'api', 'honor_board'), glob: File.join('**', '*.rb')
+    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    config.paths.add File.join('app', 'serializers'), glob: File.join('**', '*.rb')
     config.autoload_paths << "#{Rails.root}/app/api"
+    config.autoload_paths << "#{Rails.root}/app/serializers"
   end
 end
