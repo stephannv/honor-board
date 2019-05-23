@@ -1,7 +1,6 @@
 class Participant < ApplicationRecord
-  include Surrealist
-
-  surrealize_with ParticipantSerializer
+  has_many :participations
+  has_many :seasons, through: :participations
 
   validates_presence_of :username
   validates_uniqueness_of :username, case_sensitive: false

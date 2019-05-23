@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HonorBoard::V1::Seasons do
+RSpec.describe HonorBoard::V1::SeasonsAPI do
   describe 'GET /v1/seasons' do
     let!(:season) { create(:season) }
 
@@ -8,7 +8,7 @@ RSpec.describe HonorBoard::V1::Seasons do
       get '/v1/seasons'
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to eq({ seasons: [season.build_schema] }.to_json)
+      expect(response.body).to eq({ seasons: [V1::SeasonEntity.new(season)] }.to_json)
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe HonorBoard::V1::Seasons do
       get "/v1/seasons/#{season.id}"
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to eq({ season: season.build_schema }.to_json)
+      expect(response.body).to eq({ season: V1::SeasonEntity.new(season, type: :detailed) }.to_json)
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe HonorBoard::V1::Seasons do
         post '/v1/seasons', params: { season: valid_attributes }
 
         expect(response).to have_http_status(:created)
-        expect(response.body).to eq({ season: Season.last.build_schema }.to_json)
+        expect(response.body).to eq({ season: V1::SeasonEntity.new(Season.last) }.to_json)
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe HonorBoard::V1::Seasons do
         put "/v1/seasons/#{season.id}", params: { season: valid_attributes }
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to eq({ season: season.reload.build_schema }.to_json)
+        expect(response.body).to eq({ season: V1::SeasonEntity.new(season.reload) }.to_json)
       end
     end
 

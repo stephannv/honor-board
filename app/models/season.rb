@@ -1,7 +1,6 @@
 class Season < ApplicationRecord
-  include Surrealist
-
-  surrealize_with SeasonSerializer
+  has_many :participations
+  has_many :participants, through: :participations
 
   validates_presence_of :title
   validates_presence_of :started_at

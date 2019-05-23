@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HonorBoard::V1::Participants do
+RSpec.describe HonorBoard::V1::ParticipantsAPI do
   describe 'GET /v1/participants' do
     let!(:participant) { create(:participant) }
 
@@ -8,7 +8,7 @@ RSpec.describe HonorBoard::V1::Participants do
       get '/v1/participants'
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to eq({ participants: [participant.build_schema] }.to_json)
+      expect(response.body).to eq({ participants: [V1::ParticipantEntity.new(participant)] }.to_json)
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe HonorBoard::V1::Participants do
       get "/v1/participants/#{participant.id}"
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to eq({ participant: participant.build_schema }.to_json)
+      expect(response.body).to eq({ participant: V1::ParticipantEntity.new(participant, type: :detailed) }.to_json)
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe HonorBoard::V1::Participants do
         post '/v1/participants', params: { participant: valid_attributes }
 
         expect(response).to have_http_status(:created)
-        expect(response.body).to eq({ participant: Participant.last.build_schema }.to_json)
+        expect(response.body).to eq({ participant: V1::ParticipantEntity.new(Participant.last) }.to_json)
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe HonorBoard::V1::Participants do
         put "/v1/participants/#{participant.id}", params: { participant: valid_attributes }
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to eq({ participant: participant.reload.build_schema }.to_json)
+        expect(response.body).to eq({ participant: V1::ParticipantEntity.new(participant.reload) }.to_json)
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_193309) do
+ActiveRecord::Schema.define(version: 2019_05_19_204547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2019_05_19_193309) do
     t.index ["username"], name: "index_participants_on_username"
   end
 
+  create_table "participations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "participant_id", null: false
+    t.uuid "season_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["participant_id", "season_id"], name: "index_participations_on_participant_id_and_season_id", unique: true
+    t.index ["participant_id"], name: "index_participations_on_participant_id"
+    t.index ["season_id"], name: "index_participations_on_season_id"
+  end
+
   create_table "seasons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
     t.date "started_at", null: false
@@ -34,4 +44,6 @@ ActiveRecord::Schema.define(version: 2019_05_19_193309) do
     t.index ["title"], name: "index_seasons_on_title"
   end
 
+  add_foreign_key "participations", "participants"
+  add_foreign_key "participations", "seasons"
 end
