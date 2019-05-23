@@ -11,6 +11,11 @@ RSpec.describe Season, type: :model do
     it { is_expected.to have_db_index(:started_at) }
   end
 
+  describe 'Relations' do
+    it { is_expected.to have_many(:participations) }
+    it { is_expected.to have_many(:participants).through(:participations) }
+  end
+
   describe 'Validations' do
     it { is_expected.to validate_presence_of :title }
     it { is_expected.to validate_presence_of :started_at }

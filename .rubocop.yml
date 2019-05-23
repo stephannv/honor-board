@@ -16,6 +16,9 @@ Metrics/BlockLength:
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+
 Style/MixinUsage:
   Exclude:
     - 'bin/setup'

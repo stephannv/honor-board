@@ -1,7 +1,7 @@
 SimpleCov.start do
   add_group 'Models', 'app/models'
   add_group 'API', 'app/api'
-  add_group 'Serializers', 'app/serializers'
+  add_group 'Entities', 'app/entities'
 
   add_filter 'config'
   add_filter 'spec'

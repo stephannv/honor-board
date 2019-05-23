@@ -1,16 +1,16 @@
 module HonorBoard
   module V1
-    class Participants < Grape::API
+    class ParticipantsAPI < Grape::API
       # GET /participants
       desc 'List participants'
 
       get '/participants' do
         participants = Participant.all
-        present :participants, participants, with: ParticipantSerializer
+        present :participants, participants, with: ::V1::ParticipantEntity
       end
 
       # GET /participants/:id
-      desc 'Show participant details'
+      desc 'Show requested participant details'
 
       params do
         requires :id, type: String
@@ -18,7 +18,7 @@ module HonorBoard
 
       get '/participants/:id' do
         participant = Participant.find(params[:id])
-        present :participant, participant, with: ParticipantSerializer
+        present :participant, participant, with: ::V1::ParticipantEntity, type: :detailed
       end
 
       # POST /participants
@@ -34,14 +34,14 @@ module HonorBoard
         participant = Participant.new(declared(params)[:participant])
 
         if participant.save
-          present :participant, participant, with: ParticipantSerializer
+          present :participant, participant, with: ::V1::ParticipantEntity
         else
           error!({ errors: participant.errors.messages }, :unprocessable_entity)
         end
       end
 
       # PUT /participants/:id
-      desc 'Update participant'
+      desc 'Update requested participant'
 
       params do
         requires :id, type: String
@@ -54,14 +54,14 @@ module HonorBoard
         participant = Participant.find(params[:id])
 
         if participant.update(declared(params)[:participant])
-          present :participant, participant, with: ParticipantSerializer
+          present :participant, participant, with: ::V1::ParticipantEntity
         else
           error!({ errors: participant.errors.messages }, :unprocessable_entity)
         end
       end
 
       # DELETE /participants/:id
-      desc 'Delete participant'
+      desc 'Destroy requested participant'
 
       params do
         requires :id, type: String

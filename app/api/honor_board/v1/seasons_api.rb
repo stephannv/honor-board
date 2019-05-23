@@ -1,16 +1,16 @@
 module HonorBoard
   module V1
-    class Seasons < Grape::API
+    class SeasonsAPI < Grape::API
       # GET /seasons
       desc 'List seasons'
 
       get '/seasons' do
         seasons = Season.all
-        present :seasons, seasons, with: SeasonSerializer
+        present :seasons, seasons, with: ::V1::SeasonEntity
       end
 
       # GET /seasons/:id
-      desc 'Show season details'
+      desc 'Show requested season details'
 
       params do
         requires :id, type: String
@@ -18,7 +18,7 @@ module HonorBoard
 
       get '/seasons/:id' do
         season = Season.find(params[:id])
-        present :season, season, with: SeasonSerializer
+        present :season, season, with: ::V1::SeasonEntity, type: :detailed
       end
 
       # POST /seasons
@@ -35,14 +35,14 @@ module HonorBoard
         season = Season.new(declared(params)[:season])
 
         if season.save
-          present :season, season, with: SeasonSerializer
+          present :season, season, with: ::V1::SeasonEntity
         else
           error!({ errors: season.errors.messages }, :unprocessable_entity)
         end
       end
 
       # PUT /seasons/:id
-      desc 'Update season'
+      desc 'Update requested season'
 
       params do
         requires :id, type: String
@@ -56,14 +56,14 @@ module HonorBoard
         season = Season.find(params[:id])
 
         if season.update(declared(params)[:season])
-          present :season, season, with: SeasonSerializer
+          present :season, season, with: ::V1::SeasonEntity
         else
           error!({ errors: season.errors.messages }, :unprocessable_entity)
         end
       end
 
       # DELETE /seasons/:id
-      desc 'Delete season'
+      desc 'Destroy requested season'
 
       params do
         requires :id, type: String

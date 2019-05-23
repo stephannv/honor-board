@@ -35,8 +35,8 @@ module HonorBoard
     config.api_only = true
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
-    config.paths.add File.join('app', 'serializers'), glob: File.join('**', '*.rb')
+    config.paths.add File.join('app', 'entities'), glob: File.join('**', '*.rb')
     config.autoload_paths << "#{Rails.root}/app/api"
-    config.autoload_paths << "#{Rails.root}/app/serializers"
+    config.autoload_paths << "#{Rails.root}/app/entities"
   end
 end

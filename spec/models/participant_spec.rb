@@ -2,13 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Participant, type: :model do
   describe 'Columns' do
-    it do
-      is_expected.to have_db_column(:username).of_type(:citext).with_options(null: false, unique: true)
-    end
+    it { is_expected.to have_db_column(:username).of_type(:citext).with_options(null: false, unique: true) }
   end
 
   describe 'Indexes' do
     it { is_expected.to have_db_index(:username) }
+  end
+
+  describe 'Relations' do
+    it { is_expected.to have_many(:participations) }
+    it { is_expected.to have_many(:seasons).through(:participations) }
   end
 
   describe 'Validations' do
