@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_221438) do
+ActiveRecord::Schema.define(version: 2019_05_25_165040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "accomplishments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "participation_id", null: false
+    t.uuid "achievement_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["achievement_id"], name: "index_accomplishments_on_achievement_id"
+    t.index ["participation_id", "achievement_id"], name: "index_accomplishments_on_participation_id_and_achievement_id", unique: true
+    t.index ["participation_id"], name: "index_accomplishments_on_participation_id"
+  end
 
   create_table "achievements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
@@ -55,6 +65,8 @@ ActiveRecord::Schema.define(version: 2019_05_23_221438) do
     t.index ["title"], name: "index_seasons_on_title"
   end
 
+  add_foreign_key "accomplishments", "achievements"
+  add_foreign_key "accomplishments", "participations"
   add_foreign_key "participations", "participants"
   add_foreign_key "participations", "seasons"
 end
