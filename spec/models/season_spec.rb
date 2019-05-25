@@ -12,7 +12,7 @@ RSpec.describe Season, type: :model do
   end
 
   describe 'Relations' do
-    it { is_expected.to have_many(:participations) }
+    it { is_expected.to have_many(:participations).dependent(:destroy) }
     it { is_expected.to have_many(:participants).through(:participations) }
   end
 

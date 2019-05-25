@@ -11,6 +11,7 @@ gem 'pg', '1.1.4'
 gem 'puma', '3.12.1'
 gem 'rack-cors', '1.0.3'
 gem 'rails', '6.0.0.rc1'
+gem 'simple_enum', '2.3.2'
 gem 'tzinfo-data', '1.2.5', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do

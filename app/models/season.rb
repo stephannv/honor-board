@@ -1,5 +1,5 @@
 class Season < ApplicationRecord
-  has_many :participations
+  has_many :participations, dependent: :destroy
   has_many :participants, through: :participations
 
   validates_presence_of :title
