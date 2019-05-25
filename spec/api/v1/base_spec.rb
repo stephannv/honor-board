@@ -14,6 +14,12 @@ RSpec.describe HonorBoard::V1::Base do
   describe 'Mounted apps' do
     let(:base_routes) { described_class.routes.map(&:path) }
 
+    it 'mounts HonorBoard::V1::AccomplishmentsAPI app' do
+      HonorBoard::V1::AccomplishmentsAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
+      end
+    end
+
     it 'mounts HonorBoard::V1::AchievementsAPI app' do
       HonorBoard::V1::AchievementsAPI.routes.each do |route|
         expect(base_routes).to include(route.path)

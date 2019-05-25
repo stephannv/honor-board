@@ -2,6 +2,8 @@ class Participation < ApplicationRecord
   belongs_to :participant
   belongs_to :season
 
+  has_many :accomplishments, dependent: :destroy
+
   validates_presence_of :participant_id
   validates_presence_of :season_id
 

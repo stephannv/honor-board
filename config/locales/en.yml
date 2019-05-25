@@ -7,3 +7,8 @@ en:
             participant_id:
               duplicated: 'already a participant of season %{season}'
 
+        accomplishment:
+          attributes:
+            participation_id:
+              duplicated: 'already got achievement %{achievement}'
+

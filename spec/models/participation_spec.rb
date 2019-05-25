@@ -15,6 +15,8 @@ RSpec.describe Participation, type: :model do
   describe 'Relations' do
     it { is_expected.to belong_to(:participant) }
     it { is_expected.to belong_to(:season) }
+
+    it { is_expected.to have_many(:accomplishments).dependent(:destroy) }
   end
 
   describe 'Validations' do
