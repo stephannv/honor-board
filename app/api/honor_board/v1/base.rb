@@ -17,9 +17,10 @@ module HonorBoard
         error!({ error: 'Internal server error' }, 500)
       end
 
+      mount HonorBoard::V1::AchievementsAPI
       mount HonorBoard::V1::ParticipantsAPI
-      mount HonorBoard::V1::SeasonsAPI
       mount HonorBoard::V1::ParticipationsAPI
+      mount HonorBoard::V1::SeasonsAPI
     end
   end
 end

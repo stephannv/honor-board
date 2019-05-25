@@ -36,7 +36,7 @@ RSpec.describe HonorBoard::V1::SeasonsAPI do
     end
 
     context 'with invalid attributes' do
-      let(:invalid_attributes) { { title: nil, started_at: nil } }
+      let(:invalid_attributes) { attributes_for(:season, title: nil).slice(:title, :started_at) }
       let(:errors) { Season.create(invalid_attributes).errors }
 
       it 'doesn`t create a new season' do
@@ -70,7 +70,7 @@ RSpec.describe HonorBoard::V1::SeasonsAPI do
     end
 
     context 'with invalid attributes' do
-      let(:invalid_attributes) { { title: nil, started_at: nil } }
+      let(:invalid_attributes) { attributes_for(:season, title: nil).slice(:title, :started_at) }
       let(:errors) { Season.create(invalid_attributes).errors }
 
       it 'doesn`t update requested season' do

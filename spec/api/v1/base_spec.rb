@@ -12,28 +12,30 @@ RSpec.describe HonorBoard::V1::Base do
   end
 
   describe 'Mounted apps' do
-    it 'mounts HonorBoard::V1::ParticipantsAPI app' do
-      is_routes_included = HonorBoard::V1::ParticipantsAPI.routes.all? do |route|
-        described_class.routes.include?(route)
-      end
+    let(:base_routes) { described_class.routes.map(&:path) }
 
-      expect(is_routes_included).to be_truthy
+    it 'mounts HonorBoard::V1::AchievementsAPI app' do
+      HonorBoard::V1::AchievementsAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
+      end
     end
 
-    it 'mounts HonorBoard::V1::SeasonsAPI app' do
-      is_routes_included = HonorBoard::V1::SeasonsAPI.routes.all? do |route|
-        described_class.routes.include?(route)
+    it 'mounts HonorBoard::V1::ParticipantsAPI app' do
+      HonorBoard::V1::ParticipantsAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
       end
-
-      expect(is_routes_included).to be_truthy
     end
 
     it 'mounts HonorBoard::V1::ParticipationsAPI app' do
-      is_routes_included = HonorBoard::V1::ParticipationsAPI.routes.all? do |route|
-        described_class.routes.include?(route)
+      HonorBoard::V1::ParticipationsAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
       end
+    end
 
-      expect(is_routes_included).to be_truthy
+    it 'mounts HonorBoard::V1::SeasonsAPI app' do
+      HonorBoard::V1::SeasonsAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
+      end
     end
   end
 
