@@ -16,15 +16,33 @@ RSpec.describe V1::ParticipantEntity, type: :entity do
       expect(detailed_serializable_hash[:username]).to eq participant.username
     end
 
-    context 'when type is detailed' do
-      it 'exposes participation excluding participant' do
-        participant.participations = [build(:participation)]
-        participations_hash = participant.participations.map do |p|
-          V1::ParticipationEntity.new(p, except: [:participant]).serializable_hash
-        end
+    it 'exposes friend_code' do
+      expect(serializable_hash[:friend_code]).to eq participant.friend_code
+      expect(detailed_serializable_hash[:friend_code]).to eq participant.friend_code
+    end
 
-        expect(serializable_hash[:participations]).to_not eq participations_hash
-        expect(detailed_serializable_hash[:participations]).to eq participations_hash
+    context 'when type is detailed' do
+      it 'exposes seasons count' do
+        participant.seasons = build_list(:season, Faker::Number.between(1, 5))
+
+        expect(serializable_hash[:seasons_count]).to be_nil
+        expect(detailed_serializable_hash[:seasons_count]).to eq participant.seasons.size
+      end
+
+      it 'exposes achievements count' do
+        allow(participant).to receive_message_chain('achievements.size').and_return(Faker::Number.between(1, 5))
+        allow(participant).to receive_message_chain('achievements.titles.size').and_return(Faker::Number.between(1, 5))
+
+        expect(serializable_hash[:achievements_count]).to be_nil
+        expect(detailed_serializable_hash[:achievements_count]).to eq participant.achievements.size
+      end
+
+      it 'exposes titles count' do
+        allow(participant).to receive_message_chain('achievements.size').and_return(Faker::Number.between(1, 5))
+        allow(participant).to receive_message_chain('achievements.titles.size').and_return(Faker::Number.between(1, 5))
+
+        expect(serializable_hash[:titles_count]).to be_nil
+        expect(detailed_serializable_hash[:titles_count]).to eq participant.achievements.titles.size
       end
     end
   end

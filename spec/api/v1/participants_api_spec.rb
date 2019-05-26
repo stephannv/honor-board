@@ -25,7 +25,7 @@ RSpec.describe HonorBoard::V1::ParticipantsAPI do
 
   describe 'POST /v1/participants' do
     context 'with valid attributes' do
-      let(:valid_attributes) { attributes_for(:participant).slice(:username) }
+      let(:valid_attributes) { attributes_for(:participant).slice(:username, :friend_code) }
 
       it 'creates a new participant' do
         post '/v1/participants', params: { participant: valid_attributes }
@@ -36,7 +36,7 @@ RSpec.describe HonorBoard::V1::ParticipantsAPI do
     end
 
     context 'with invalid attributes' do
-      let(:invalid_attributes) { { username: nil } }
+      let(:invalid_attributes) { { username: nil, friend_code: nil } }
       let(:errors) { Participant.create(invalid_attributes).errors }
 
       it 'doesn`t create a new participant' do
@@ -52,7 +52,7 @@ RSpec.describe HonorBoard::V1::ParticipantsAPI do
     let!(:participant) { create(:participant) }
 
     context 'with valid attributes' do
-      let(:valid_attributes) { attributes_for(:participant).slice(:username) }
+      let(:valid_attributes) { attributes_for(:participant).slice(:username, :friend_code) }
 
       it 'updates requested participant' do
         put "/v1/participants/#{participant.id}", params: { participant: valid_attributes }
@@ -69,7 +69,7 @@ RSpec.describe HonorBoard::V1::ParticipantsAPI do
     end
 
     context 'with invalid attributes' do
-      let(:invalid_attributes) { { username: nil } }
+      let(:invalid_attributes) { { username: nil, friend_code: nil } }
       let(:errors) { Participant.create(invalid_attributes).errors }
 
       it 'doesn`t update requested participant' do
