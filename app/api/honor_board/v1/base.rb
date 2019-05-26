@@ -21,6 +21,7 @@ module HonorBoard
       mount HonorBoard::V1::AchievementsAPI
       mount HonorBoard::V1::ParticipantsAPI
       mount HonorBoard::V1::ParticipationsAPI
+      mount HonorBoard::V1::RankingAPI
       mount HonorBoard::V1::SeasonsAPI
     end
   end

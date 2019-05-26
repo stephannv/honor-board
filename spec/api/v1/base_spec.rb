@@ -38,6 +38,12 @@ RSpec.describe HonorBoard::V1::Base do
       end
     end
 
+    it 'mounts HonorBoard::V1::RankingAPI app' do
+      HonorBoard::V1::RankingAPI.routes.each do |route|
+        expect(base_routes).to include(route.path)
+      end
+    end
+
     it 'mounts HonorBoard::V1::SeasonsAPI app' do
       HonorBoard::V1::SeasonsAPI.routes.each do |route|
         expect(base_routes).to include(route.path)

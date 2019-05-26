@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_25_165040) do
+ActiveRecord::Schema.define(version: 2019_05_26_173433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_05_25_165040) do
     t.citext "username", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.citext "friend_code", null: false
     t.index ["username"], name: "index_participants_on_username"
   end
 
@@ -69,4 +70,18 @@ ActiveRecord::Schema.define(version: 2019_05_25_165040) do
   add_foreign_key "accomplishments", "participations"
   add_foreign_key "participations", "participants"
   add_foreign_key "participations", "seasons"
+
+  create_view "ranking", sql_definition: <<-SQL
+      SELECT rank() OVER (ORDER BY (sum(achievements.points)) DESC) AS rank,
+      participants.id AS participant_id,
+      participants.username AS participant_username,
+      sum(achievements.points) AS total_points,
+      count(DISTINCT participations.id) AS participations_count
+     FROM (((participants
+       JOIN participations ON ((participations.participant_id = participants.id)))
+       LEFT JOIN accomplishments ON ((accomplishments.participation_id = participations.id)))
+       LEFT JOIN achievements ON ((accomplishments.achievement_id = achievements.id)))
+    GROUP BY participants.id
+    ORDER BY (sum(achievements.points)) DESC;
+  SQL
 end

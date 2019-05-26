@@ -27,6 +27,7 @@ module HonorBoard
       params do
         requires :participant, type: Hash do
           requires :username, type: String
+          requires :friend_code, type: String
         end
       end
 
@@ -47,6 +48,7 @@ module HonorBoard
         requires :id, type: String
         requires :participant, type: Hash do
           requires :username, type: String
+          requires :friend_code, type: String
         end
       end
 
