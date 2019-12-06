@@ -8,7 +8,7 @@ gem 'bootsnap', '1.4.4', require: false
 gem 'grape', '1.2.3'
 gem 'grape-entity', '0.7.1'
 gem 'pg', '1.1.4'
-gem 'puma', '3.12.1'
+gem 'puma', '3.12.2'
 gem 'rack-cors', '1.0.3'
 gem 'rails', '6.0.0.rc1'
 gem 'scenic', '1.5.1'
